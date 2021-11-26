@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       json_response(@user, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       json_response(@user, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 

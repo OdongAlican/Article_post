@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     if @comment.save
       json_response(@comment, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       json_response(@comment, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 

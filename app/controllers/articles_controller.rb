@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
     if @article.save
       json_response(@article, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 
@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       json_response(@article, :created)
     else
-      error_response('Something went wrong', :internal_server_error)
+      error_response('Something went wrong', :unprocessable_entity)
     end
   end
 
@@ -42,6 +42,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :content, :user_id, comment_ids: [])
+    params.permit(:title, :content, :user_id, comment_ids: [])
   end
 end
