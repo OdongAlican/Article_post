@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    json_response(@article).to_json({ include: 'comments' })
+    json_response(@article).to_json({ include: ['comments'] })
   end
 
   def destroy
