@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: %i[show update destroy]
 
   def index
-    @articles = Article.all.limit(10).to_json({ include: 'comments' })
+    @articles = Article.all.limit(10).to_json({ include: %w[user comments] })
     json_response(@articles, :ok)
   end
 

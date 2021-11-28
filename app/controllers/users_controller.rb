@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: %i[show update destroy]
 
   def index
-    @users = User.all.limit(10).to_json({ include: ['comments', { articles: { include: 'comments' } }] })
+    @users = User.limit(limit).offset(params[:offset]).to_json({ include: ['comments', { articles: { include: 'comments' } }] })
     json_response(@users, :ok)
   end
   { roles: { include: 'permissions' } }
@@ -35,6 +35,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def limit
+    [params.fetch(:limit, 10).to_i, 10].min
+  end
 
   def find_user
     @user = User.find(params[:id])
