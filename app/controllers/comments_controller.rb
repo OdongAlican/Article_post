@@ -11,7 +11,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.create(comment_params)
     if @comment.save
-      json_response(@comment, :created)
+      result = @comment.to_json({ include: 'user' })
+      json_response(result, :created)
     else
       error_response('Something went wrong', :unprocessable_entity)
     end

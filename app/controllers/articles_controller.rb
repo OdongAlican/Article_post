@@ -11,7 +11,8 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.create(article_params)
     if @article.save
-      json_response(@article, :created)
+      result = @article.to_json({ include: %w[user] })
+      json_response(result, :created)
     else
       error_response('Something went wrong', :unprocessable_entity)
     end
@@ -26,7 +27,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    json_response(@article).to_json({ include: ['comments'] })
+    data = @article.to_json({ include: ['user', { comments: { include: 'user' } }] })
+    json_response(data)
   end
 
   def destroy
